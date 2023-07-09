@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 
-import Stat from '../Stat';
+import Stat from '../stats/Stat';
 import FullWidthButton from '../buttons/FullWidthButton';
 
 import { IconContext } from 'react-icons';
