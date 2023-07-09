@@ -1,42 +1,48 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@font-face {
+    font-family: Roboto-Black;
+    src: url(./assets/fonts/Roboto-Black.ttf);
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+@font-face {
+    font-family: Roboto-BlackItalic;
+    src: url(./assets/fonts/Roboto-BlackItalic.ttf);
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+@font-face {
+    font-family: Roboto-Bold;
+    src: url(./assets/fonts/Roboto-Bold.ttf);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+@font-face {
+    font-family: Roboto-BoldItalic;
+    src: url(./assets/fonts/Roboto-BoldItalic.ttf);
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@font-face {
+    font-family: Roboto-Italic;
+    src: url(./assets/fonts/Roboto-Italic.ttf);
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+@font-face {
+    font-family: Roboto-Light;
+    src: url(./assets/fonts/Roboto-Light.ttf);
 }
-
-.card {
-  padding: 2em;
+@font-face {
+    font-family: Roboto-LightItalic;
+    src: url(./assets/fonts/Roboto-LightItalic.ttf);
 }
-
-.read-the-docs {
-  color: #888;
+@font-face {
+    font-family: Roboto-Medium;
+    src: url(./assets/fonts/Roboto-Medium.ttf);
+}
+@font-face {
+    font-family: Roboto-MediumItalic;
+    src: url(./assets/fonts/Roboto-MediumItalic.ttf);
+}
+@font-face {
+    font-family: Roboto-Regular;
+    src: url(./assets/fonts/Roboto-Regular.ttf);
+}
+@font-face {
+    font-family: Roboto-Thin;
+    src: url(./assets/fonts/Roboto-Thin.ttf);
+}
+@font-face {
+    font-family: Roboto-ThinItalic;
+    src: url(./assets/fonts/Roboto-ThinItalic.ttf);
 }
