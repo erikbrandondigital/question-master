@@ -35,11 +35,11 @@ const ArticleStyled = styled.article`
 const DivStyled = styled.div`
     display: flex;
     flex-direction: row;
-    gap: 1.25rem;
+    gap: 1.5rem;
 `;
 
 const Heading1Styled = styled.h1`
-    margin: 0 0 1.25rem 0;
+    margin: 0 0 1.5rem 0;
     font-family: 'Roboto-Bold';
     font-size: 1rem;
     color: #252a31;

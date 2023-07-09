@@ -58,17 +58,19 @@ export default StatsCard;
 const Heading1Styled = styled.h1`
     margin: 0;
     font-family: 'Roboto-Bold';
-    font-size: '1rem';
+    font-size: 1rem;
+    color: #252a31;
 `;
 
 const ParagraphStyled = styled.p`
     margin: 0;
     font-family: 'Roboto-LightItalic';
     font-size: 0.875rem;
+    color: #252a31;
 `;
 
 const DivStyled = styled.div`
-    margin: 0.875rem 0;
+    margin: 1.5rem 0;
 `;
 
 const SectionStyled = styled.section`

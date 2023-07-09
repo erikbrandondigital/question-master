@@ -29,13 +29,15 @@ const HeaderStyled = styled.header`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1.375rem;
+    gap: 1.5rem;
+    padding: 1.25rem 1.375rem;
     box-shadow: 0px 0px 2px 0px rgba(79, 94, 113, 0.12),
         0px 2px 4px 0px rgba(79, 94, 113, 0.11),
         0px 4px 8px 0px rgba(79, 94, 113, 0.1);
 `;
 
 const LogoAreaStyled = styled.div`
+    flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -43,10 +45,14 @@ const LogoAreaStyled = styled.div`
 `;
 
 const Heading1Styled = styled.h1`
+    margin: 0;
     font-family: 'Roboto-Black';
     font-size: 1.25rem;
+    color: #252a31;
 `;
 const ParagraphStyled = styled.p`
+    margin: 0;
     font-family: 'Roboto-LightItalic';
     font-size: 0.875rem;
+    color: #252a31;
 `;

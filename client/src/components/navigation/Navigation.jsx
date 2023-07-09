@@ -17,7 +17,9 @@ const Navigation = () => {
 export default Navigation;
 
 const Nav = styled.nav`
+    flex: 1;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     gap: 1rem;
 `;

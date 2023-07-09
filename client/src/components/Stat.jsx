@@ -33,4 +33,5 @@ const ParagraphStyled = styled.p`
     margin: 0;
     font-family: 'Roboto-Medium';
     font-size: 0.875rem;
+    color: #252a31;
 `;

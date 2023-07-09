@@ -23,7 +23,7 @@ const LinkStyled = styled(Link)`
     font-family: 'Roboto-Medium';
     font-size: 0.875rem;
     text-decoration: none;
-    color: #000000;
+    color: #252a31;
     text-align: center;
     &:hover,
     :focus,
