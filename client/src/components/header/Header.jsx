@@ -24,13 +24,14 @@ Header.propTypes = {
 export default Header;
 
 const HeaderStyled = styled.header`
-    background-color: #ffffff;
+    flex: none;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
     padding: 1.25rem 1.375rem;
+    background-color: #ffffff;
     box-shadow: 0px 0px 2px 0px rgba(79, 94, 113, 0.12),
         0px 2px 4px 0px rgba(79, 94, 113, 0.11),
         0px 4px 8px 0px rgba(79, 94, 113, 0.1);

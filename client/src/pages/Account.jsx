@@ -19,6 +19,7 @@ export default Account;
 const ArticleStyled = styled.article`
     background-color: #ffffff;
     padding: 1.5rem;
+    border-radius: 0.1875rem;
 `;
 
 const SectionStyled = styled.section`

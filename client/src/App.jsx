@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
 import Header from './components/header/Header';
 
 import Account from './pages/Account';
@@ -30,5 +29,8 @@ function App() {
 export default App;
 
 const MainStyled = styled.main`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 2.5rem 1.25rem;
 `;

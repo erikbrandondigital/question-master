@@ -30,6 +30,7 @@ export default Dashboard;
 const ArticleStyled = styled.article`
     background-color: #ffffff;
     padding: 1.5rem;
+    border-radius: 0.1875rem;
 `;
 
 const DivStyled = styled.div`
