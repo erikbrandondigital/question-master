@@ -42,6 +42,10 @@ const LogoAreaStyled = styled.div`
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 `;
 
 const Heading1Styled = styled.h1`

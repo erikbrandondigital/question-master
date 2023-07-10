@@ -25,6 +25,10 @@ const LinkStyled = styled(Link)`
     text-decoration: none;
     color: #252a31;
     text-align: center;
+    user-select: none !important;
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
+    -ms-user-select: none !important;
     &:hover,
     :focus,
     :focus-visible {
