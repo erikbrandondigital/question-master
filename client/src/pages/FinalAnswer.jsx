@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import AnswerForm from './../components/forms/AnswerForm';
-import FinalAnswerClueCard from '../components/cards/FinalAnswerClueCard';
+import OpenClueCard from '../components/cards/OpenClueCard';
 
 function FinalAnswer() {
     return (
@@ -8,7 +8,7 @@ function FinalAnswer() {
             <ArticleStyled>
                 <Heading1Styled>Final Answer</Heading1Styled>
                 <SectionStyled>
-                    <FinalAnswerClueCard clue='Clue' />
+                    <OpenClueCard clue='Clue' />
                     <AnswerForm />
                 </SectionStyled>
             </ArticleStyled>

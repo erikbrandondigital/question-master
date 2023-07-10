@@ -30,8 +30,8 @@ const LinkStyled = styled(Link)`
     -webkit-user-select: none !important;
     -ms-user-select: none !important;
     &:hover,
-    :focus,
-    :focus-visible {
+    &:focus,
+    &:focus-visible {
         color: #0172cb;
     }
 `;

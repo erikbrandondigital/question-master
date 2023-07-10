@@ -30,8 +30,8 @@ const LinkStyled = styled(Link)`
     background-color: #0172cb;
     text-align: center;
     &:hover,
-    :focus,
-    :focus-visible {
+    &:focus,
+    &:focus-visible {
         background-color: #0161ac;
     }
 `;

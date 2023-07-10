@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 
-const FinalAnswerClueCard = (props) => {
+const OpenClueCard = (props) => {
     return (
         <>
             <DivStyled>
@@ -11,11 +11,11 @@ const FinalAnswerClueCard = (props) => {
     );
 };
 
-FinalAnswerClueCard.propTypes = {
+OpenClueCard.propTypes = {
     clue: PropTypes.string.isRequired
 };
 
-export default FinalAnswerClueCard;
+export default OpenClueCard;
 
 const DivStyled = styled.div`
     flex: 1;
@@ -32,4 +32,8 @@ const Heading2Styled = styled.h2`
     font-family: 'Roboto-Bold';
     font-size: 1.75rem;
     color: #ffffff;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 `;
