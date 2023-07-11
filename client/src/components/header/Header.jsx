@@ -1,15 +1,16 @@
 import { styled } from 'styled-components';
 import Navigation from '../navigation/Navigation';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 const Header = (props) => {
     return (
         <>
             <HeaderStyled>
-                <LogoAreaStyled>
+                <NavLinkStyled to='/' aria-label='Dashboard'>
                     <Heading1Styled>{props.brandName}</Heading1Styled>
                     <ParagraphStyled>{props.brandSlogan}</ParagraphStyled>
-                </LogoAreaStyled>
+                </NavLinkStyled>
                 <Navigation />
             </HeaderStyled>
         </>
@@ -37,12 +38,13 @@ const HeaderStyled = styled.header`
         0px 4px 8px 0px rgba(79, 94, 113, 0.1);
 `;
 
-const LogoAreaStyled = styled.div`
+const NavLinkStyled = styled(NavLink)`
     flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    text-decoration: none;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;

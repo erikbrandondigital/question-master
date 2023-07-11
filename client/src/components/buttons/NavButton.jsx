@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const NavButton = (props) => {
@@ -19,7 +19,7 @@ NavButton.propTypes = {
 
 export default NavButton;
 
-const LinkStyled = styled(Link)`
+const LinkStyled = styled(NavLink)`
     font-family: 'Roboto-Medium';
     font-size: 0.875rem;
     text-decoration: none;
@@ -30,8 +30,7 @@ const LinkStyled = styled(Link)`
     -webkit-user-select: none !important;
     -ms-user-select: none !important;
     &:hover,
-    &:focus,
-    &:focus-visible {
+    &.active {
         color: #0172cb;
     }
 `;
