@@ -1,15 +1,44 @@
+import axios from 'axios';
 import styled from 'styled-components';
 import AnswerForm from './../components/forms/AnswerForm';
 import OpenClueCard from '../components/cards/OpenClueCard';
+import { useQuery } from '@tanstack/react-query';
+import { useContext, useEffect } from 'react';
+import { FinalAnswerContext } from '../App';
 
 function FinalAnswer() {
+    const { setAnswer } = useContext(FinalAnswerContext);
+
+    const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
+        queryKey: ['finalAnswerClues'],
+        queryFn: () =>
+            axios.get('http://jservice.io/api/final').then((res) => res.data)
+    });
+
+    useEffect(() => {
+        if (isSuccess) {
+            console.log(data[0]);
+            setAnswer(data[0].answer);
+        }
+    }, [data, isSuccess, setAnswer]);
+
     return (
         <>
             <ArticleStyled>
-                <Heading1Styled>Final Answer</Heading1Styled>
+                <Heading1Styled>
+                    {!isSuccess
+                        ? 'Final Answer'
+                        : `Final Answer - Category: ${data[0].category.title.toUpperCase()}`}
+                </Heading1Styled>
                 <SectionStyled>
-                    <OpenClueCard clue='Clue' />
-                    <AnswerForm />
+                    {isLoading ? <OpenClueCard clue='Loading...' /> : null}
+                    {isError ? <OpenClueCard clue={error.message} /> : null}
+                    {isSuccess ? (
+                        <>
+                            <OpenClueCard clue={data[0].question} />
+                            <AnswerForm refetch={refetch} />
+                        </>
+                    ) : null}
                 </SectionStyled>
             </ArticleStyled>
         </>

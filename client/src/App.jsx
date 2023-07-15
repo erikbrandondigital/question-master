@@ -6,22 +6,46 @@ import Dashboard from './pages/Dashboard';
 import FinalAnswer from './pages/FinalAnswer';
 import Answers from './pages/Answers';
 import { styled } from 'styled-components';
+import { createContext, useState } from 'react';
+
+export const FinalAnswerContext = createContext();
 
 function App() {
+    const [correctAnswer, setCorrectAnswer] = useState(null);
+    const [checkedAnswer, setCheckedAnswer] = useState(false);
+    const [userAnswer, setUserAnswer] = useState('');
+    const [answer, setAnswer] = useState('');
+
     return (
         <>
-            <Header
-                brandName='Question Master'
-                brandSlogan='Do you have what it takes?'
-            />
-            <MainStyled>
-                <Routes>
-                    <Route path='/' element={<Dashboard />} />
-                    <Route path='answers' element={<Answers />} />
-                    <Route path='final-answers' element={<FinalAnswer />} />
-                    <Route path='account' element={<Account />} />
-                </Routes>
-            </MainStyled>
+            <FinalAnswerContext.Provider
+                value={{
+                    correctAnswer,
+                    setCorrectAnswer,
+                    checkedAnswer,
+                    setCheckedAnswer,
+                    userAnswer,
+                    setUserAnswer,
+                    answer,
+                    setAnswer
+                }}
+            >
+                <Header
+                    brandName='Question Master'
+                    brandSlogan='Do you have what it takes?'
+                />
+                <MainStyled>
+                    <Routes>
+                        <Route path='/' element={<Dashboard />} />
+                        <Route path='answers' element={<Answers />} />
+                        <Route
+                            path='final-answers'
+                            element={<FinalAnswer />}
+                        />
+                        <Route path='account' element={<Account />} />
+                    </Routes>
+                </MainStyled>
+            </FinalAnswerContext.Provider>
         </>
     );
 }
