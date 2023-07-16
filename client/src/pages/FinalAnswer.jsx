@@ -1,13 +1,13 @@
 import axios from 'axios';
 import styled from 'styled-components';
-import AnswerForm from './../components/forms/AnswerForm';
+import FinalAnswerForm from '../components/forms/FinalAnswerForm';
 import OpenClueCard from '../components/cards/OpenClueCard';
 import { useQuery } from '@tanstack/react-query';
 import { useContext, useEffect } from 'react';
 import { FinalAnswerContext } from '../App';
 
 function FinalAnswer() {
-    const { setAnswer } = useContext(FinalAnswerContext);
+    const { setFinalAnswer } = useContext(FinalAnswerContext);
 
     const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
         queryKey: ['finalAnswerClues'],
@@ -18,9 +18,9 @@ function FinalAnswer() {
     useEffect(() => {
         if (isSuccess) {
             console.log(data[0]);
-            setAnswer(data[0].answer);
+            setFinalAnswer(data[0].answer);
         }
-    }, [data, isSuccess, setAnswer]);
+    }, [data, isSuccess, setFinalAnswer]);
 
     return (
         <>
@@ -36,7 +36,7 @@ function FinalAnswer() {
                     {isSuccess ? (
                         <>
                             <OpenClueCard clue={data[0].question} />
-                            <AnswerForm refetch={refetch} />
+                            <FinalAnswerForm refetch={refetch} />
                         </>
                     ) : null}
                 </SectionStyled>

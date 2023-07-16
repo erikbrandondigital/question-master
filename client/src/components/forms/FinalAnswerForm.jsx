@@ -3,49 +3,52 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FinalAnswerContext } from '../../App';
 
-function AnswerForm(props) {
+function FinalAnswerForm(props) {
     const {
-        answer,
-        correctAnswer,
-        setCorrectAnswer,
-        checkedAnswer,
-        setCheckedAnswer,
-        userAnswer,
-        setUserAnswer
+        finalAnswer,
+        finalCorrectAnswer,
+        setFinalCorrectAnswer,
+        finalCheckedAnswer,
+        setFinalCheckedAnswer,
+        finalUserAnswer,
+        setFinalUserAnswer
     } = useContext(FinalAnswerContext);
 
     const handleInput = (e) => {
-        setUserAnswer(e.target.value);
+        setFinalUserAnswer(e.target.value);
     };
 
     const checkAnswer = (e) => {
         e.preventDefault();
 
-        let answerFormatted = answer;
+        let answerFormatted = finalAnswer;
         // Remove HTML tags from answer using regex.
         answerFormatted = answerFormatted.replace(/<\/?[^>]+>/gi, '');
         // Remove single or double quotes from answer using regex.
         answerFormatted = answerFormatted.replace(/['"()]+/g, '');
 
-        console.log(userAnswer.toLowerCase(), answerFormatted.toLowerCase());
+        console.log(
+            finalUserAnswer.toLowerCase(),
+            answerFormatted.toLowerCase()
+        );
 
-        if (userAnswer.toLowerCase() === answerFormatted.toLowerCase()) {
-            setCorrectAnswer(true);
+        if (finalUserAnswer.toLowerCase() === answerFormatted.toLowerCase()) {
+            setFinalCorrectAnswer(true);
         } else {
-            setCorrectAnswer(false);
-            setUserAnswer(
-                `Your answer was ${userAnswer} when the correct answer is ${answerFormatted}.`
+            setFinalCorrectAnswer(false);
+            setFinalUserAnswer(
+                `Your answer was ${finalUserAnswer} when the correct answer is ${answerFormatted}.`
             );
         }
 
-        setCheckedAnswer(true);
+        setFinalCheckedAnswer(true);
     };
 
     const nextQuestion = (e) => {
         e.preventDefault();
-        setCorrectAnswer(null);
-        setCheckedAnswer(false);
-        setUserAnswer('');
+        setFinalCorrectAnswer(null);
+        setFinalCheckedAnswer(false);
+        setFinalUserAnswer('');
         props.refetch();
     };
 
@@ -53,7 +56,7 @@ function AnswerForm(props) {
         <>
             <FormStyled
                 onSubmit={
-                    checkedAnswer
+                    finalCheckedAnswer
                         ? (e) => {
                               nextQuestion(e);
                           }
@@ -64,46 +67,46 @@ function AnswerForm(props) {
             >
                 <LabelStyled
                     className={
-                        (correctAnswer === true ? 'correct' : null) ||
-                        (correctAnswer === false ? 'incorrect' : null)
+                        (finalCorrectAnswer === true ? 'correct' : null) ||
+                        (finalCorrectAnswer === false ? 'incorrect' : null)
                     }
-                    htmlFor='answer'
+                    htmlFor='finalAnswer'
                 >
-                    {correctAnswer === null
+                    {finalCorrectAnswer === null
                         ? 'What is...'
-                        : correctAnswer
+                        : finalCorrectAnswer
                         ? 'Correct'
                         : 'Incorrect'}
                 </LabelStyled>
                 <InputStyled
                     className={
-                        (correctAnswer === true ? 'correct' : null) ||
-                        (correctAnswer === false ? 'incorrect' : null)
+                        (finalCorrectAnswer === true ? 'correct' : null) ||
+                        (finalCorrectAnswer === false ? 'incorrect' : null)
                     }
                     type='text'
-                    id='answer'
-                    name='answer'
+                    id='finalAnswer'
+                    name='finalAnswer'
                     placeholder='Answer'
                     required
-                    value={userAnswer}
+                    value={finalUserAnswer}
                     onChange={(e) => {
                         handleInput(e);
                     }}
-                    disabled={checkedAnswer ? true : false}
+                    disabled={finalCheckedAnswer ? true : false}
                 ></InputStyled>
                 <SubmitButtonStyled type='submit'>
-                    {checkedAnswer ? 'Next Question' : 'Check Answer'}
+                    {finalCheckedAnswer ? 'Next Question' : 'Check Answer'}
                 </SubmitButtonStyled>
             </FormStyled>
         </>
     );
 }
 
-AnswerForm.propTypes = {
-    refetch: PropTypes.func.isRequired
+FinalAnswerForm.propTypes = {
+    refetch: PropTypes.func
 };
 
-export default AnswerForm;
+export default FinalAnswerForm;
 
 const FormStyled = styled.form`
     width: 100%;

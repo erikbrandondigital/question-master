@@ -1,21 +1,16 @@
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 
-const CategoryClueCard = (props) => {
+const BlankClueCard = () => {
     return (
         <>
             <DivStyled>
-                <Heading2Styled>{props.category}</Heading2Styled>
+                <Heading2Styled></Heading2Styled>
             </DivStyled>
         </>
     );
 };
 
-CategoryClueCard.propTypes = {
-    category: PropTypes.string.isRequired
-};
-
-export default CategoryClueCard;
+export default BlankClueCard;
 
 const DivStyled = styled.div`
     flex: 1;
@@ -32,7 +27,6 @@ const Heading2Styled = styled.h2`
     font-family: 'Roboto-Bold';
     font-size: 1.75rem;
     color: #ffffff;
-    text-align: center;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
