@@ -7,8 +7,9 @@ Utils.waitForSeconds = (seconds) =>
     new Promise((resolve) => setTimeout(resolve, seconds));
 
 Utils.calculateSuccessRate = (correctAnswers, attemptedAnswers) => {
-    let successRate =
-        (parseInt(correctAnswers) / parseInt(attemptedAnswers)) * 100;
+    let successRate = Math.round(
+        (parseInt(correctAnswers) / parseInt(attemptedAnswers)) * 100
+    );
     return isNaN(successRate) ? '0%' : `${successRate.toString()}%`;
 };
 

@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FinalAnswerContext } from '../../App';
+import { FinalAnswerContext, UserContext } from '../../App';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 
 function FinalAnswerForm(props) {
     const {
@@ -13,6 +15,17 @@ function FinalAnswerForm(props) {
         finalUserAnswer,
         setFinalUserAnswer
     } = useContext(FinalAnswerContext);
+
+    const { userData, setUserData } = useContext(UserContext);
+
+    const statsMutation = useMutation({
+        mutationFn: (updatedUserData) => {
+            return axios.patch(
+                `http://localhost:3000/users/${userData._id}`,
+                updatedUserData
+            );
+        }
+    });
 
     const handleInput = (e) => {
         setFinalUserAnswer(e.target.value);
@@ -32,14 +45,23 @@ function FinalAnswerForm(props) {
             answerFormatted.toLowerCase()
         );
 
+        let updatedUserData = userData;
+
         if (finalUserAnswer.toLowerCase() === answerFormatted.toLowerCase()) {
+            updatedUserData.stats.finalAnswer.correctAnswers += 1;
             setFinalCorrectAnswer(true);
         } else {
+            updatedUserData.stats.finalAnswer.incorrectAnswers += 1;
             setFinalCorrectAnswer(false);
             setFinalUserAnswer(
                 `Your answer was ${finalUserAnswer} when the correct answer is ${answerFormatted}.`
             );
         }
+
+        updatedUserData.stats.finalAnswer.attemptedAnswers += 1;
+
+        statsMutation.mutate(updatedUserData);
+        setUserData(updatedUserData);
 
         setFinalCheckedAnswer(true);
     };

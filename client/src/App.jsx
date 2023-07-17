@@ -1,4 +1,6 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { styled } from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
 
@@ -33,12 +35,28 @@ function App() {
     // User Data
     const [userData, setUserData] = useState({});
 
+    const { isLoading, isError, isSuccess, data, error } = useQuery({
+        queryKey: ['userData'],
+        queryFn: () =>
+            axios.get('http://localhost:3000/users/').then((res) => res.data)
+    });
+
+    useEffect(() => {
+        if (isSuccess) {
+            setUserData(data.data[0]);
+        }
+    }, [data, isSuccess, setUserData]);
+
     return (
         <>
             <UserContext.Provider
                 value={{
                     userData,
-                    setUserData
+                    setUserData,
+                    isLoading,
+                    isError,
+                    isSuccess,
+                    error
                 }}
             >
                 <MainAnswersContext.Provider

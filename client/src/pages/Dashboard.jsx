@@ -1,7 +1,5 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
 import { UserContext } from './../App';
 
@@ -9,19 +7,7 @@ import StatsCard from '../components/cards/StatsCard';
 import Utils from '../utils/Utils';
 
 function Dashboard() {
-    const { userData, setUserData } = useContext(UserContext);
-
-    const { isLoading, isError, isSuccess, data, error } = useQuery({
-        queryKey: ['userData'],
-        queryFn: () =>
-            axios.get('http://localhost:3000/users/').then((res) => res.data)
-    });
-
-    useEffect(() => {
-        if (isSuccess) {
-            setUserData(data.data[0]);
-        }
-    }, [data, isSuccess, setUserData]);
+    const { userData, isLoading, isError, error } = useContext(UserContext);
 
     return (
         <>
