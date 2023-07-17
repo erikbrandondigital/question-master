@@ -11,6 +11,8 @@ import BlankClueCard from './../components/cards/BlankClueCard';
 import Utils from './../utils/Utils';
 
 function Answers() {
+    const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+
     const {
         isAnswering,
         setIsAnswering,
@@ -61,7 +63,8 @@ function Answers() {
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false,
-        refetchOnReconnect: false
+        refetchOnReconnect: false,
+        staleTime: twentyFourHoursInMs
     });
 
     useEffect(() => {
@@ -70,7 +73,7 @@ function Answers() {
                 let categories = [];
                 data.forEach((category) => {
                     if (category.clues.length < 5) {
-                        Utils.waitForSeconds(1).then(() => refetch());
+                        Utils.waitForSeconds(3).then(() => refetch());
                         return;
                     }
 

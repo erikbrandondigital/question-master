@@ -7,6 +7,8 @@ import { useContext, useEffect } from 'react';
 import { FinalAnswerContext } from '../App';
 
 function FinalAnswer() {
+    const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+
     const { setFinalAnswer } = useContext(FinalAnswerContext);
 
     const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
@@ -15,7 +17,8 @@ function FinalAnswer() {
             axios.get('http://jservice.io/api/final').then((res) => res.data),
         refetchOnWindowFocus: false,
         refetchOnMount: false,
-        refetchOnReconnect: false
+        refetchOnReconnect: false,
+        staleTime: twentyFourHoursInMs
     });
 
     useEffect(() => {
