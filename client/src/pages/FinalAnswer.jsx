@@ -10,7 +10,7 @@ function FinalAnswer() {
     const { setFinalAnswer } = useContext(FinalAnswerContext);
 
     const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
-        queryKey: ['finalAnswerClues'],
+        queryKey: ['finalAnswerData'],
         queryFn: () =>
             axios.get('http://jservice.io/api/final').then((res) => res.data)
     });

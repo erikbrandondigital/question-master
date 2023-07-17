@@ -12,7 +12,9 @@ function MainAnswerForm() {
         setMainCheckedAnswer,
         mainUserAnswer,
         setMainUserAnswer,
-        setIsAnswering
+        setIsAnswering,
+        mainAnswerCount,
+        setMainAnswerCount
     } = useContext(MainAnswersContext);
 
     const handleInput = (e) => {
@@ -50,6 +52,7 @@ function MainAnswerForm() {
         setMainCorrectAnswer(null);
         setMainCheckedAnswer(false);
         setMainUserAnswer('');
+        setMainAnswerCount(mainAnswerCount + 1);
         setIsAnswering(false);
     };
 

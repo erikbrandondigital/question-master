@@ -1,11 +1,14 @@
 import { useContext, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-import MainAnswerForm from '../components/forms/MainAnswerForm';
-import ClueCard from '../components/cards/ClueCard';
-import CategoryClueCard from '../components/cards/CategoryClueCard';
-import OpenClueCard from '../components/cards/OpenClueCard';
-import BlankClueCard from './../components/cards/BlankClueCard';
+import axios from 'axios';
 import { MainAnswersContext } from '../App';
+import CategoryClueCard from '../components/cards/CategoryClueCard';
+import ClueCard from '../components/cards/ClueCard';
+import OpenClueCard from '../components/cards/OpenClueCard';
+import MainAnswerForm from '../components/forms/MainAnswerForm';
+import BlankClueCard from './../components/cards/BlankClueCard';
+import Utils from './../utils/Utils';
 
 function Answers() {
     const {
@@ -14,229 +17,93 @@ function Answers() {
         currentClue,
         setCurrentClue,
         setMainAnswer,
+        mainAnswerCount,
+        setMainAnswerCount,
         boardData,
         setBoardData
     } = useContext(MainAnswersContext);
 
-    useEffect(() => {
-        if (boardData.length === 0) {
-            setBoardData([
-                {
-                    name: 'Category 1',
-                    clues: [
-                        {
-                            question: 'Clue 1',
-                            answer: 'test',
-                            value: '$400',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 2',
-                            answer: 'test',
-                            value: '$800',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 3',
-                            answer: 'test',
-                            value: '$1200',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 4',
-                            answer: 'test',
-                            value: '$1600',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 5',
-                            answer: 'test',
-                            value: '$2000',
-                            isAnswered: false
-                        }
-                    ]
-                },
-                {
-                    name: 'Category 2',
-                    clues: [
-                        {
-                            question: 'Clue 7',
-                            answer: 'test',
-                            value: '$400',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 8',
-                            answer: 'test',
-                            value: '$800',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 9',
-                            answer: 'test',
-                            value: '$1200',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 10',
-                            answer: 'test',
-                            value: '$1600',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 11',
-                            answer: 'test',
-                            value: '$2000',
-                            isAnswered: false
-                        }
-                    ]
-                },
-                {
-                    name: 'Category 3',
-                    clues: [
-                        {
-                            question: 'Clue 13',
-                            answer: 'test',
-                            value: '$400',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 14',
-                            answer: 'test',
-                            value: '$800',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 15',
-                            answer: 'test',
-                            value: '$1200',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 16',
-                            answer: 'test',
-                            value: '$1600',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 17',
-                            answer: 'test',
-                            value: '$2000',
-                            isAnswered: false
-                        }
-                    ]
-                },
-                {
-                    name: 'Category 4',
-                    clues: [
-                        {
-                            question: 'Clue 19',
-                            answer: 'test',
-                            value: '$400',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 20',
-                            answer: 'test',
-                            value: '$800',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 21',
-                            answer: 'test',
-                            value: '$1200',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 22',
-                            answer: 'test',
-                            value: '$1600',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 23',
-                            answer: 'test',
-                            value: '$2000',
-                            isAnswered: false
-                        }
-                    ]
-                },
-                {
-                    name: 'Category 5',
-                    clues: [
-                        {
-                            question: 'Clue 25',
-                            answer: 'test',
-                            value: '$400',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 26',
-                            answer: 'test',
-                            value: '$800',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 27',
-                            answer: 'test',
-                            value: '$1200',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 28',
-                            answer: 'test',
-                            value: '$1600',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 29',
-                            answer: 'test',
-                            value: '$2000',
-                            isAnswered: false
-                        }
-                    ]
-                },
-                {
-                    name: 'Category 6',
-                    clues: [
-                        {
-                            question: 'Clue 31',
-                            answer: 'test',
-                            value: '$400',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 32',
-                            answer: 'test',
-                            value: '$800',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 33',
-                            answer: 'test',
-                            value: '$1200',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 34',
-                            answer: 'test',
-                            value: '$1600',
-                            isAnswered: false
-                        },
-                        {
-                            question: 'Clue 35',
-                            answer: 'test',
-                            value: '$2000',
-                            isAnswered: false
-                        }
-                    ]
-                }
-            ]);
-        }
-    }, [setBoardData]);
+    const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
+        queryKey: ['mainAnswersData'],
+        queryFn: () => {
+            const endpoints = [
+                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
+                    1,
+                    4694
+                )}`,
+                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
+                    4695,
+                    9389
+                )}`,
+                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
+                    9390,
+                    14083
+                )}`,
+                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
+                    14084,
+                    18778
+                )}`,
+                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
+                    18779,
+                    23473
+                )}`,
+                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
+                    23474,
+                    28163
+                )}`
+            ];
 
-    const handleClick = (e, clue) => {
-        console.log(e, clue.question);
+            const requests = endpoints.map((url) => axios.get(url));
+
+            return axios
+                .all(requests)
+                .then((response) => response.map((category) => category.data));
+        }
+    });
+
+    useEffect(() => {
+        if (isSuccess) {
+            if (boardData.length === 0) {
+                let categories = [];
+                data.forEach((category) => {
+                    if (category.clues.length < 5) {
+                        Utils.waitForSeconds(1).then(() => refetch());
+                        return;
+                    }
+
+                    let fiveClues = [];
+                    for (const [index, clue] of category.clues.entries()) {
+                        if (index >= 5) break;
+
+                        fiveClues.push({
+                            question: clue.question,
+                            answer: clue.answer,
+                            value: `$${(index + 1) * 400}`,
+                            isAnswered: false
+                        });
+                    }
+
+                    categories.push({
+                        name: category.title.toUpperCase(),
+                        clues: fiveClues
+                    });
+                });
+
+                setBoardData(categories);
+            }
+        }
+        console.log(boardData);
+    }, [boardData, data, isSuccess, setBoardData, refetch]);
+
+    useEffect(() => {
+        if (mainAnswerCount === 30) {
+            setBoardData([]);
+            setMainAnswerCount(0);
+            refetch();
+        }
+    }, [mainAnswerCount, setMainAnswerCount, setBoardData, refetch]);
+
+    const handleClick = (clue) => {
         setMainAnswer(clue.answer);
         setCurrentClue(clue.question);
         clue.isAnswered = true;
@@ -257,16 +124,14 @@ function Answers() {
                     <ClueCard
                         key={clue.question}
                         value={clue.value}
-                        onClick={(e) => {
-                            handleClick(e, clue);
+                        onClick={() => {
+                            handleClick(clue);
                         }}
                     />
                 )
             );
         });
     });
-
-    console.log(categories);
 
     return (
         <>

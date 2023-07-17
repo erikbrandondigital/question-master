@@ -25,6 +25,7 @@ function App() {
     const [mainUserAnswer, setMainUserAnswer] = useState('');
     const [mainAnswer, setMainAnswer] = useState('');
     const [isAnswering, setIsAnswering] = useState(false);
+    const [mainAnswerCount, setMainAnswerCount] = useState(0);
     const [currentClue, setCurrentClue] = useState(0);
     const [boardData, setBoardData] = useState([]);
 
@@ -42,6 +43,8 @@ function App() {
                     setMainAnswer,
                     isAnswering,
                     setIsAnswering,
+                    mainAnswerCount,
+                    setMainAnswerCount,
                     currentClue,
                     setCurrentClue,
                     boardData,
