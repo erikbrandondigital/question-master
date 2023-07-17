@@ -6,4 +6,10 @@ Utils.generateRandomNumber = (min, max) =>
 Utils.waitForSeconds = (seconds) =>
     new Promise((resolve) => setTimeout(resolve, seconds));
 
+Utils.calculateSuccessRate = (correctAnswers, attemptedAnswers) => {
+    let successRate =
+        (parseInt(correctAnswers) / parseInt(attemptedAnswers)) * 100;
+    return isNaN(successRate) ? '0%' : `${successRate.toString()}%`;
+};
+
 export default Utils;

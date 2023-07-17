@@ -6,14 +6,14 @@ const Stat = (props) => {
         <>
             <DivStyled>
                 <i>{props.icon}</i>
-                <ParagraphStyled>{props.name}</ParagraphStyled>
+                <ParagraphStyled>{props.value}</ParagraphStyled>
             </DivStyled>
         </>
     );
 };
 
 Stat.propTypes = {
-    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
     icon: PropTypes.element
 };
 

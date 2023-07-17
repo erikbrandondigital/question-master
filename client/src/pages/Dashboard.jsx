@@ -1,24 +1,113 @@
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+
+import { UserContext } from './../App';
+
 import StatsCard from '../components/cards/StatsCard';
+import Utils from '../utils/Utils';
 
 function Dashboard() {
+    const { userData, setUserData } = useContext(UserContext);
+
+    const { isLoading, isError, isSuccess, data, error } = useQuery({
+        queryKey: ['userData'],
+        queryFn: () =>
+            axios.get('http://localhost:3000/users/').then((res) => res.data)
+    });
+
+    useEffect(() => {
+        if (isSuccess) {
+            setUserData(data.data[0]);
+        }
+    }, [data, isSuccess, setUserData]);
+
     return (
         <>
             <ArticleStyled>
                 <Heading1Styled>Your Statistics</Heading1Styled>
                 <DivStyled>
-                    <StatsCard
-                        title='Answers'
-                        description="See how well you're doing in Answers"
-                        cta='Start Practicing'
-                        ctaTo='/answers'
-                    />
-                    <StatsCard
-                        title='Final Answer'
-                        description="See how well you're doing in Final Answer"
-                        cta='Start Practicing'
-                        ctaTo='/final-answers'
-                    />
+                    {isLoading ? (
+                        <>
+                            <StatsCard
+                                title='Answers'
+                                description="See how well you're doing in Answers"
+                                cta='Start Practicing'
+                                ctaTo='/answers'
+                                correctAnswers={'Loading...'}
+                                incorrectAnswers={'Loading...'}
+                                attemptedAnswers={'Loading...'}
+                                successRate={'Loading...'}
+                            />
+                            <StatsCard
+                                title='Final Answer'
+                                description="See how well you're doing in Final Answer"
+                                cta='Start Practicing'
+                                ctaTo='/final-answers'
+                                correctAnswers={'Loading...'}
+                                incorrectAnswers={'Loading...'}
+                                attemptedAnswers={'Loading...'}
+                                successRate={'Loading...'}
+                            />
+                        </>
+                    ) : null}
+
+                    {isError ? (
+                        <>
+                            <StatsCard
+                                title='Answers'
+                                description="See how well you're doing in Answers"
+                                cta='Start Practicing'
+                                ctaTo='/answers'
+                                correctAnswers={`Error: ${error.message}`}
+                                incorrectAnswers={`Error: ${error.message}`}
+                                attemptedAnswers={`Error: ${error.message}`}
+                                successRate={`Error: ${error.message}`}
+                            />
+                            <StatsCard
+                                title='Final Answer'
+                                description="See how well you're doing in Final Answer"
+                                cta='Start Practicing'
+                                ctaTo='/final-answers'
+                                correctAnswers={`Error: ${error.message}`}
+                                incorrectAnswers={`Error: ${error.message}`}
+                                attemptedAnswers={`Error: ${error.message}`}
+                                successRate={`Error: ${error.message}`}
+                            />
+                        </>
+                    ) : null}
+                    {Object.keys(userData).length > 0 ? (
+                        <>
+                            <StatsCard
+                                title='Answers'
+                                description="See how well you're doing in Answers"
+                                cta='Start Practicing'
+                                ctaTo='/answers'
+                                correctAnswers={`${userData.stats.answers.correctAnswers} Correct Answers`}
+                                incorrectAnswers={`${userData.stats.answers.incorrectAnswers} Incorrect Answers`}
+                                attemptedAnswers={`${userData.stats.answers.attemptedAnswers} Questions Answered`}
+                                successRate={`${Utils.calculateSuccessRate(
+                                    userData.stats.answers.correctAnswers,
+                                    userData.stats.answers.attemptedAnswers
+                                )} Success Rate`}
+                            />
+                            <StatsCard
+                                title='Final Answer'
+                                description="See how well you're doing in Final Answer"
+                                cta='Start Practicing'
+                                ctaTo='/final-answers'
+                                correctAnswers={`${userData.stats.finalAnswer.correctAnswers} Correct Answers`}
+                                incorrectAnswers={`${userData.stats.finalAnswer.incorrectAnswers} Incorrect Answers`}
+                                attemptedAnswers={`${userData.stats.finalAnswer.attemptedAnswers} Questions Answered`}
+                                successRate={`${Utils.calculateSuccessRate(
+                                    userData.stats.finalAnswer.correctAnswers,
+                                    userData.stats.finalAnswer
+                                        .attemptedAnswers
+                                )} Success Rate`}
+                            />
+                        </>
+                    ) : null}
                 </DivStyled>
             </ArticleStyled>
         </>

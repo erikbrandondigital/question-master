@@ -12,7 +12,10 @@ function FinalAnswer() {
     const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
         queryKey: ['finalAnswerData'],
         queryFn: () =>
-            axios.get('http://jservice.io/api/final').then((res) => res.data)
+            axios.get('http://jservice.io/api/final').then((res) => res.data),
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false
     });
 
     useEffect(() => {

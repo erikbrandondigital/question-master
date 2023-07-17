@@ -11,6 +11,7 @@ import Header from './components/header/Header';
 
 export const FinalAnswerContext = createContext();
 export const MainAnswersContext = createContext();
+export const UserContext = createContext();
 
 function App() {
     // Final Answer
@@ -29,57 +30,67 @@ function App() {
     const [currentClue, setCurrentClue] = useState(0);
     const [boardData, setBoardData] = useState([]);
 
+    // User Data
+    const [userData, setUserData] = useState({});
+
     return (
         <>
-            <MainAnswersContext.Provider
+            <UserContext.Provider
                 value={{
-                    mainCorrectAnswer,
-                    setMainCorrectAnswer,
-                    mainCheckedAnswer,
-                    setMainCheckedAnswer,
-                    mainUserAnswer,
-                    setMainUserAnswer,
-                    mainAnswer,
-                    setMainAnswer,
-                    isAnswering,
-                    setIsAnswering,
-                    mainAnswerCount,
-                    setMainAnswerCount,
-                    currentClue,
-                    setCurrentClue,
-                    boardData,
-                    setBoardData
+                    userData,
+                    setUserData
                 }}
             >
-                <FinalAnswerContext.Provider
+                <MainAnswersContext.Provider
                     value={{
-                        finalCorrectAnswer,
-                        setFinalCorrectAnswer,
-                        finalCheckedAnswer,
-                        setFinalCheckedAnswer,
-                        finalUserAnswer,
-                        setFinalUserAnswer,
-                        finalAnswer,
-                        setFinalAnswer
+                        mainCorrectAnswer,
+                        setMainCorrectAnswer,
+                        mainCheckedAnswer,
+                        setMainCheckedAnswer,
+                        mainUserAnswer,
+                        setMainUserAnswer,
+                        mainAnswer,
+                        setMainAnswer,
+                        isAnswering,
+                        setIsAnswering,
+                        mainAnswerCount,
+                        setMainAnswerCount,
+                        currentClue,
+                        setCurrentClue,
+                        boardData,
+                        setBoardData
                     }}
                 >
-                    <Header
-                        brandName='Question Master'
-                        brandSlogan='Do you have what it takes?'
-                    />
-                    <MainStyled>
-                        <Routes>
-                            <Route path='/' element={<Dashboard />} />
-                            <Route path='answers' element={<Answers />} />
-                            <Route
-                                path='final-answers'
-                                element={<FinalAnswer />}
-                            />
-                            <Route path='account' element={<Account />} />
-                        </Routes>
-                    </MainStyled>
-                </FinalAnswerContext.Provider>
-            </MainAnswersContext.Provider>
+                    <FinalAnswerContext.Provider
+                        value={{
+                            finalCorrectAnswer,
+                            setFinalCorrectAnswer,
+                            finalCheckedAnswer,
+                            setFinalCheckedAnswer,
+                            finalUserAnswer,
+                            setFinalUserAnswer,
+                            finalAnswer,
+                            setFinalAnswer
+                        }}
+                    >
+                        <Header
+                            brandName='Question Master'
+                            brandSlogan='Do you have what it takes?'
+                        />
+                        <MainStyled>
+                            <Routes>
+                                <Route path='/' element={<Dashboard />} />
+                                <Route path='answers' element={<Answers />} />
+                                <Route
+                                    path='final-answers'
+                                    element={<FinalAnswer />}
+                                />
+                                <Route path='account' element={<Account />} />
+                            </Routes>
+                        </MainStyled>
+                    </FinalAnswerContext.Provider>
+                </MainAnswersContext.Provider>
+            </UserContext.Provider>
         </>
     );
 }

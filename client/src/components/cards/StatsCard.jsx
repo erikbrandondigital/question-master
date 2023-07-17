@@ -24,19 +24,19 @@ const StatsCard = (props) => {
                     >
                         <Stat
                             icon={<LiaCheckCircleSolid color='#28a138' />}
-                            name='0 Correct Answers'
+                            value={props.correctAnswers}
                         />
                         <Stat
                             icon={<LiaTimesCircleSolid color='#d21c1c' />}
-                            name='0 Incorrect Answers'
+                            value={props.incorrectAnswers}
                         />
                         <Stat
                             icon={<LiaQuestionCircleSolid color='#252a31' />}
-                            name='0 Clues Attempted'
+                            value={props.attemptedAnswers}
                         />
                         <Stat
                             icon={<LiaTrophySolid color='#ffc700' />}
-                            name='0% Success Rate'
+                            value={props.successRate}
                         />
                     </IconContext.Provider>
                 </DivStyled>
@@ -50,7 +50,11 @@ StatsCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     cta: PropTypes.string.isRequired,
-    ctaTo: PropTypes.string.isRequired
+    ctaTo: PropTypes.string.isRequired,
+    correctAnswers: PropTypes.string,
+    incorrectAnswers: PropTypes.string,
+    attemptedAnswers: PropTypes.string,
+    successRate: PropTypes.string
 };
 
 export default StatsCard;

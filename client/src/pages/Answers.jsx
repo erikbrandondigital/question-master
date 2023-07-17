@@ -58,7 +58,10 @@ function Answers() {
             return axios
                 .all(requests)
                 .then((response) => response.map((category) => category.data));
-        }
+        },
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false
     });
 
     useEffect(() => {
