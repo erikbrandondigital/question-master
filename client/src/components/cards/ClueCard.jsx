@@ -24,7 +24,7 @@ const ButtonStyled = styled.button`
     justify-content: center;
     align-items: center;
     border-radius: 0.1875rem;
-    padding: 1.5rem;
+    padding: 1rem;
     background-color: #0172cb;
     outline: none;
     border: none;
@@ -39,6 +39,6 @@ const ButtonStyled = styled.button`
 const Heading2Styled = styled.h2`
     margin: 0;
     font-family: 'Roboto-Bold';
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     color: #ffffff;
 `;

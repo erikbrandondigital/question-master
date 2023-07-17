@@ -71,9 +71,11 @@ function Answers() {
         if (isSuccess) {
             if (boardData.length === 0) {
                 let categories = [];
+                if (categories.length < 6)
+                    Utils.waitForSeconds(10).then(() => refetch());
                 data.forEach((category) => {
                     if (category.clues.length < 5) {
-                        Utils.waitForSeconds(3).then(() => refetch());
+                        Utils.waitForSeconds(10).then(() => refetch());
                         return;
                     }
 
@@ -170,8 +172,9 @@ const ArticleStyled = styled.article`
 const GridSectionStyled = styled.section`
     flex: 1;
     display: grid;
-    /* grid-template-columns: repeat(6, 1fr); */
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+
+    grid-template-rows: repeat(6, minmax(0, 1fr));
     grid-auto-flow: column;
     gap: 0.125rem;
 `;

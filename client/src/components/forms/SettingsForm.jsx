@@ -1,6 +1,81 @@
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useMutation } from '@tanstack/react-query';
+import { UserContext } from '../../App';
+import axios from 'axios';
 
 function SettingsForm() {
+    const { userData, setUserData } = useContext(UserContext);
+
+    const [userID, setUserID] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [street, setStreet] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zipCode, setZipCode] = useState('');
+
+    useEffect(() => {
+        setUserID(userData._id);
+        setFirstName(userData.firstName);
+        setLastName(userData.lastName);
+        setEmail(userData.email);
+        setPhone(userData.phone);
+        setStreet(userData.street);
+        setCity(userData.city);
+        setState(userData.state);
+        setZipCode(userData.zipCode);
+    }, [userData]);
+
+    const userMutation = useMutation({
+        mutationFn: (updatedUserData) => {
+            return axios.patch(
+                `http://localhost:3000/users/${userData._id}`,
+                updatedUserData
+            );
+        }
+    });
+
+    const handleSaveButtonClick = (e) => {
+        e.preventDefault();
+
+        let updatedUserData = {
+            _id: userID,
+            firstName,
+            lastName,
+            email,
+            phone,
+            street,
+            city,
+            state,
+            zipCode,
+            stats: userData.stats
+        };
+
+        userMutation.mutate(updatedUserData);
+        setUserData(updatedUserData);
+    };
+
+    const handleResetButtonClick = () => {
+        let updatedUserData = userData;
+        updatedUserData.stats = {
+            answers: {
+                correctAnswers: 0,
+                incorrectAnswers: 0,
+                attemptedAnswers: 0
+            },
+            finalAnswer: {
+                correctAnswers: 0,
+                incorrectAnswers: 0,
+                attemptedAnswers: 0
+            }
+        };
+        userMutation.mutate(updatedUserData);
+        setUserData.updatedUserData;
+    };
+
     return (
         <>
             <FormStyled>
@@ -8,91 +83,119 @@ function SettingsForm() {
                     <LabelStyled htmlFor='firstName'>
                         First Name
                         <InputStyled
+                            onChange={(e) => setFirstName(e.target.value)}
                             type='text'
                             id='firstName'
                             name='firstName'
                             placeholder='First Name'
+                            value={firstName}
                             required
                         />
                     </LabelStyled>
                     <LabelStyled htmlFor='lastName'>
                         Last Name
                         <InputStyled
+                            onChange={(e) => setLastName(e.target.value)}
                             type='text'
                             id='lastName'
                             name='lastName'
                             placeholder='Last Name'
+                            value={lastName}
                             required
                         />
                     </LabelStyled>
                     <LabelStyled htmlFor='email'>
                         Email Address
                         <InputStyled
+                            onChange={(e) => setEmail(e.target.value)}
                             type='email'
                             id='email'
                             name='email'
                             placeholder='Email Address'
+                            value={email}
                             required
                         />
                     </LabelStyled>
                     <LabelStyled htmlFor='phone'>
                         Phone Number
                         <InputStyled
+                            onChange={(e) => setPhone(e.target.value)}
                             type='tel'
                             id='phone'
                             name='phone'
                             placeholder='Phone Number'
+                            value={phone}
                             required
                         />
                     </LabelStyled>
-                    <LabelStyled htmlFor='streetAddress'>
+                    <LabelStyled htmlFor='street'>
                         Street Address
                         <InputStyled
+                            onChange={(e) => setStreet(e.target.value)}
                             type='text'
-                            id='streetAddress'
-                            name='streetAddress'
+                            id='street'
+                            name='street'
                             placeholder='Street Address'
+                            value={street}
                             required
                         />
                     </LabelStyled>
                     <LabelStyled htmlFor='city'>
                         City
                         <InputStyled
+                            onChange={(e) => setCity(e.target.value)}
                             type='text'
                             id='city'
                             name='city'
                             placeholder='City'
+                            value={city}
                             required
                         />
                     </LabelStyled>
                     <LabelStyled htmlFor='state'>
                         State
                         <InputStyled
+                            onChange={(e) => setState(e.target.value)}
                             type='text'
                             id='state'
                             name='state'
                             placeholder='State'
+                            value={state}
                             required
                         />
                     </LabelStyled>
                     <LabelStyled htmlFor='zipCode'>
                         Zip Code
                         <InputStyled
+                            onChange={(e) => setZipCode(e.target.value)}
                             type='number'
                             id='zipCode'
                             name='zipCode'
                             placeholder='Zip Code'
                             min={0o0}
                             max={99999}
+                            value={zipCode}
                             required
                         />
                     </LabelStyled>
                 </InputDivStyled>
                 <ButtonDivStyled>
-                    <ResetButtonStyled type='button'>
+                    <ResetButtonStyled
+                        type='button'
+                        onClick={() => {
+                            handleResetButtonClick();
+                        }}
+                    >
                         Reset Stats
                     </ResetButtonStyled>
-                    <SubmitButtonStyled type='submit'>Save</SubmitButtonStyled>
+                    <SubmitButtonStyled
+                        type='submit'
+                        onClick={(e) => {
+                            handleSaveButtonClick(e);
+                        }}
+                    >
+                        Save
+                    </SubmitButtonStyled>
                 </ButtonDivStyled>
             </FormStyled>
         </>
