@@ -4,6 +4,7 @@ import axios from 'axios';
 import { styled } from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
 
+import Onboarding from './pages/Onboarding';
 import Account from './pages/Account';
 import Dashboard from './pages/Dashboard';
 import FinalAnswer from './pages/FinalAnswer';
@@ -35,14 +36,14 @@ function App() {
     // User Data
     const [userData, setUserData] = useState({});
 
-    const { isLoading, isError, isSuccess, data, error } = useQuery({
+    const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
         queryKey: ['userData'],
         queryFn: () =>
             axios.get('http://localhost:3000/users/').then((res) => res.data)
     });
 
     useEffect(() => {
-        if (isSuccess) {
+        if (isSuccess && data.data.length > 0) {
             setUserData(data.data[0]);
         }
     }, [data, isSuccess, setUserData]);
@@ -91,21 +92,40 @@ function App() {
                             setFinalAnswer
                         }}
                     >
-                        <Header
-                            brandName='Question Master'
-                            brandSlogan='Do you have what it takes?'
-                        />
-                        <MainStyled>
-                            <Routes>
-                                <Route path='/' element={<Dashboard />} />
-                                <Route path='answers' element={<Answers />} />
-                                <Route
-                                    path='final-answers'
-                                    element={<FinalAnswer />}
+                        {Object.keys(userData).length > 0 ? (
+                            <>
+                                <Header
+                                    brandName='Question Master'
+                                    brandSlogan='Do you have what it takes?'
                                 />
-                                <Route path='account' element={<Account />} />
-                            </Routes>
-                        </MainStyled>
+                                <MainStyled>
+                                    <Routes>
+                                        <Route
+                                            path='/'
+                                            element={<Dashboard />}
+                                        />
+                                        <Route
+                                            path='answers'
+                                            element={<Answers />}
+                                        />
+                                        <Route
+                                            path='final-answers'
+                                            element={<FinalAnswer />}
+                                        />
+                                        <Route
+                                            path='account'
+                                            element={<Account />}
+                                        />
+                                    </Routes>
+                                </MainStyled>
+                            </>
+                        ) : (
+                            <>
+                                <MainStyled>
+                                    <Onboarding refetch={refetch} />
+                                </MainStyled>
+                            </>
+                        )}
                     </FinalAnswerContext.Provider>
                 </MainAnswersContext.Provider>
             </UserContext.Provider>

@@ -15,20 +15,20 @@ export const errorHandler = (err, req, res, next) => {
     if (err.code === 11000) {
         if (Object.prototype.hasOwnProperty.call(error.keyValue, 'email')) {
             message = WARNING_USER_DUPLICATE;
-            error = new ErrorResponse(404, message);
+            error = new ErrorResponse(400, message);
         }
     }
 
     if (err.name === 'CastError') {
         message = INVALID_ID_FORMAT(err.stringValue, err.reason);
-        error = new ErrorResponse(404, message);
+        error = new ErrorResponse(400, message);
     }
 
     if (err.name === 'ValidationError') {
         const messages = Object.values(err.errors).map(
             (value) => value.message
         );
-        error = new ErrorResponse(404, messages);
+        error = new ErrorResponse(400, messages);
     }
 
     if (err instanceof ErrorResponse) {
