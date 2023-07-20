@@ -86,6 +86,7 @@ function Answers() {
                         fiveClues.push({
                             question: clue.question,
                             answer: clue.answer,
+                            category: category.title.toUpperCase(),
                             value: `$${(index + 1) * 400}`,
                             isAnswered: false
                         });
@@ -113,7 +114,7 @@ function Answers() {
 
     const handleClick = (clue) => {
         setMainAnswer(clue.answer);
-        setCurrentClue(clue.question);
+        setCurrentClue(clue);
         clue.isAnswered = true;
         setIsAnswering(true);
     };
@@ -144,10 +145,14 @@ function Answers() {
     return (
         <>
             <ArticleStyled>
-                <Heading1Styled>Answers</Heading1Styled>
+                <Heading1Styled>
+                    {!isAnswering
+                        ? 'Answers'
+                        : `Answers - Category: ${currentClue.category.toString()}`}
+                </Heading1Styled>
                 {isAnswering ? (
                     <SectionStyled>
-                        <OpenClueCard clue={currentClue.toString()} />
+                        <OpenClueCard clue={currentClue.question.toString()} />
                         <MainAnswerForm />
                     </SectionStyled>
                 ) : (
