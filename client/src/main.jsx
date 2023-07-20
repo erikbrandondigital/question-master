@@ -4,6 +4,9 @@ import App from './App.jsx';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { UserContextProvider } from './contexts/UserContext.jsx';
+import { MainAnswersContextProvider } from './contexts/MainAnswersContext.jsx';
+import { FinalAnswerContextProvider } from './contexts/FinalAnswerContext.jsx';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -17,7 +20,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>
-                <App />
+                <UserContextProvider>
+                    <MainAnswersContextProvider>
+                        <FinalAnswerContextProvider>
+                            <App />
+                        </FinalAnswerContextProvider>
+                    </MainAnswersContextProvider>
+                </UserContextProvider>
             </BrowserRouter>
         </QueryClientProvider>
     </React.StrictMode>

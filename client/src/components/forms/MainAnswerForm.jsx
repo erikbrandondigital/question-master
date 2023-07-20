@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { MainAnswersContext, UserContext } from '../../App';
+import { MainAnswersContext } from '../../contexts/MainAnswersContext';
+import { UserContext } from '../../contexts/UserContext';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 

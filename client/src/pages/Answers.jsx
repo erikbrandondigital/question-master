@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import axios from 'axios';
-import { MainAnswersContext } from '../App';
+import { MainAnswersContext } from '../contexts/MainAnswersContext';
 import CategoryClueCard from '../components/cards/CategoryClueCard';
 import ClueCard from '../components/cards/ClueCard';
 import OpenClueCard from '../components/cards/OpenClueCard';

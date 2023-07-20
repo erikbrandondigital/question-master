@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useMutation } from '@tanstack/react-query';
-import { UserContext } from '../../App';
+import { UserContext } from '../../contexts/UserContext';
 import axios from 'axios';
 
 function SettingsForm() {

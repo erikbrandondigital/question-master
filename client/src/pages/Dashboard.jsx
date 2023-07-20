@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
-import { UserContext } from './../App';
+import { UserContext } from '../contexts/UserContext';
 
 import StatsCard from '../components/cards/StatsCard';
 import Utils from '../utils/Utils';

@@ -4,7 +4,7 @@ import FinalAnswerForm from '../components/forms/FinalAnswerForm';
 import OpenClueCard from '../components/cards/OpenClueCard';
 import { useQuery } from '@tanstack/react-query';
 import { useContext, useEffect } from 'react';
-import { FinalAnswerContext } from '../App';
+import { FinalAnswerContext } from '../contexts/FinalAnswerContext';
 
 function FinalAnswer() {
     const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
