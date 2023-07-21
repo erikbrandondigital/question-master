@@ -21,11 +21,11 @@ function FinalAnswer() {
     return (
         <>
             <ArticleStyled>
-                <Heading1Styled>
+                <Heading2Styled>
                     {!isSuccess
                         ? 'Final Answer'
                         : `Final Answer - Category: ${data[0].category.title.toUpperCase()}`}
-                </Heading1Styled>
+                </Heading2Styled>
                 <SectionStyled>
                     {isLoading ? <OpenClueCard clue='Loading...' /> : null}
                     {isError ? <OpenClueCard clue={error.message} /> : null}
@@ -59,7 +59,7 @@ const SectionStyled = styled.section`
     gap: 1.5rem;
 `;
 
-const Heading1Styled = styled.h1`
+const Heading2Styled = styled.h2`
     margin: 0 0 1.5rem 0;
     font-family: 'Roboto-Bold';
     font-size: 1rem;

@@ -12,7 +12,7 @@ function Dashboard() {
     return (
         <>
             <ArticleStyled>
-                <Heading1Styled>Your Statistics</Heading1Styled>
+                <Heading2Styled>Your Statistics</Heading2Styled>
                 <DivStyled>
                     {isLoading ? (
                         <>
@@ -114,7 +114,7 @@ const DivStyled = styled.div`
     gap: 1.5rem;
 `;
 
-const Heading1Styled = styled.h1`
+const Heading2Styled = styled.h2`
     margin: 0 0 1.5rem 0;
     font-family: 'Roboto-Bold';
     font-size: 1rem;

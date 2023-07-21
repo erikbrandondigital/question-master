@@ -33,7 +33,7 @@ function MainAnswerForm() {
         // Remove HTML tags from answer using regex.
         answerFormatted = answerFormatted.replace(/<\/?[^>]+>/gi, '');
         // Remove single or double quotes from answer using regex.
-        answerFormatted = answerFormatted.replace(/['"()]+/g, '');
+        answerFormatted = answerFormatted.replace(/['"()\\]+/g, '');
 
         console.log(
             mainUserAnswer.toLowerCase(),
@@ -164,7 +164,7 @@ const InputStyled = styled.input`
     border-radius: 0 0.1875rem 0.1875rem 0;
     font-family: 'Roboto-Italic';
     font-size: 0.875rem;
-    color: #697d95;
+    color: #4c5a6b;
     &:focus {
         border: 1px solid #0172cb;
         box-shadow: 2px 2px 0px 0px #e8f4fd, 2px -2px 0px 0px #e8f4fd,

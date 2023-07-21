@@ -53,4 +53,7 @@ const MainStyled = styled.main`
     display: flex;
     flex-direction: column;
     padding: 2.5rem 1.25rem;
+    background: url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg');
+    background-position: center center;
+    background-size: cover;
 `;

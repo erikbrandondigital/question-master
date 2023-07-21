@@ -5,7 +5,7 @@ const ClueCard = (props) => {
     return (
         <>
             <ButtonStyled onClick={props.onClick} type='button'>
-                <Heading2Styled>{props.value}</Heading2Styled>
+                <Heading4Styled>{props.value}</Heading4Styled>
             </ButtonStyled>
         </>
     );
@@ -36,7 +36,7 @@ const ButtonStyled = styled.button`
     }
 `;
 
-const Heading2Styled = styled.h2`
+const Heading4Styled = styled.h4`
     margin: 0;
     font-family: 'Roboto-Bold';
     font-size: 1.5rem;

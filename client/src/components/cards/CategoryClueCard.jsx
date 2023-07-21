@@ -5,7 +5,7 @@ const CategoryClueCard = (props) => {
     return (
         <>
             <DivStyled>
-                <Heading2Styled>{props.category}</Heading2Styled>
+                <Heading3Styled>{props.category}</Heading3Styled>
             </DivStyled>
         </>
     );
@@ -27,7 +27,7 @@ const DivStyled = styled.div`
     background-color: #0172cb;
 `;
 
-const Heading2Styled = styled.h2`
+const Heading3Styled = styled.h3`
     margin: 0;
     font-family: 'Roboto-Bold';
     font-size: 1.5rem;

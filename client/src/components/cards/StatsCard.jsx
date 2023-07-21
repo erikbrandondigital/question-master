@@ -16,26 +16,50 @@ const StatsCard = (props) => {
     return (
         <>
             <SectionStyled>
-                <Heading1Styled>{props.title}</Heading1Styled>
+                <Heading3Styled>{props.title}</Heading3Styled>
                 <ParagraphStyled>{props.description}</ParagraphStyled>
                 <DivStyled>
                     <IconContext.Provider
                         value={{ size: 30, style: { display: 'block' } }}
                     >
                         <Stat
-                            icon={<LiaCheckCircleSolid color='#28a138' />}
+                            icon={
+                                <LiaCheckCircleSolid
+                                    color='#28a138'
+                                    role='img'
+                                    aria-label='Green circle with a checkmark.'
+                                />
+                            }
                             value={props.correctAnswers}
                         />
                         <Stat
-                            icon={<LiaTimesCircleSolid color='#d21c1c' />}
+                            icon={
+                                <LiaTimesCircleSolid
+                                    color='#d21c1c'
+                                    role='img'
+                                    aria-label='Red circle with a checkmark.'
+                                />
+                            }
                             value={props.incorrectAnswers}
                         />
                         <Stat
-                            icon={<LiaQuestionCircleSolid color='#252a31' />}
+                            icon={
+                                <LiaQuestionCircleSolid
+                                    color='#252a31'
+                                    role='img'
+                                    aria-label='Black circle with a question mark.'
+                                />
+                            }
                             value={props.attemptedAnswers}
                         />
                         <Stat
-                            icon={<LiaTrophySolid color='#ffc700' />}
+                            icon={
+                                <LiaTrophySolid
+                                    color='#ffc700'
+                                    role='img'
+                                    aria-label='A yellow trophy.'
+                                />
+                            }
                             value={props.successRate}
                         />
                     </IconContext.Provider>
@@ -59,7 +83,7 @@ StatsCard.propTypes = {
 
 export default StatsCard;
 
-const Heading1Styled = styled.h1`
+const Heading3Styled = styled.h3`
     margin: 0;
     font-family: 'Roboto-Bold';
     font-size: 1rem;

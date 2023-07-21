@@ -115,7 +115,7 @@ function SettingsForm() {
                             type='tel'
                             id='phone'
                             name='phone'
-                            placeholder='Phone Number'
+                            placeholder='Phone Number (Example: 555-555-5555)'
                             value={phone}
                             required
                         />
@@ -220,9 +220,9 @@ const InputStyled = styled.input`
     outline: none;
     border: 1px solid #bac7d5;
     border-radius: 0.1875rem;
-    font-family: 'Roboto-ThinItalic';
+    font-family: 'Roboto-Italic';
     font-size: 0.875rem;
-    color: #697d95;
+    color: #4c5a6b;
     &:focus {
         border: 1px solid #0172cb;
         box-shadow: 2px 2px 0px 0px #e8f4fd, 2px -2px 0px 0px #e8f4fd,

@@ -5,7 +5,7 @@ function Account() {
     return (
         <>
             <ArticleStyled>
-                <Heading1Styled>Settings</Heading1Styled>
+                <Heading2Styled>Settings</Heading2Styled>
                 <SectionStyled>
                     <SettingsForm />
                 </SectionStyled>
@@ -28,7 +28,7 @@ const SectionStyled = styled.section`
     gap: 1.5rem;
 `;
 
-const Heading1Styled = styled.h1`
+const Heading2Styled = styled.h2`
     margin: 0 0 1.5rem 0;
     font-family: 'Roboto-Bold';
     font-size: 1rem;
