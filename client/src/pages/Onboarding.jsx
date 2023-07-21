@@ -1,9 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import styled from 'styled-components';
-import { PropTypes } from 'prop-types';
 import RegistrationForm from '../components/forms/RegistrationForm';
 
-function Onboarding(props) {
+function Onboarding() {
     return (
         <>
             <ArticleStyled>
@@ -24,16 +23,12 @@ function Onboarding(props) {
                 </ParagraphStyled>
                 <Heading2Styled>Start Practicing Today</Heading2Styled>
                 <SectionStyled>
-                    <RegistrationForm refetch={props.refetch} />
+                    <RegistrationForm />
                 </SectionStyled>
             </ArticleStyled>
         </>
     );
 }
-
-Onboarding.propTypes = {
-    refetch: PropTypes.func.isRequired
-};
 
 export default Onboarding;
 

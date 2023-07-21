@@ -1,12 +1,15 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { UserContext } from '../../contexts/UserContext';
 import { FinalAnswerContext } from '../../contexts/FinalAnswerContext';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutationUpdateUserDB } from '../../apis/MongoDB';
+import { useQueryClient } from '@tanstack/react-query';
 
-function FinalAnswerForm(props) {
+function FinalAnswerForm() {
+    const queryClient = useQueryClient();
+
+    const { userData, setUserData } = useContext(UserContext);
+    const { mutate } = useMutationUpdateUserDB(userData._id);
     const {
         finalAnswer,
         finalCorrectAnswer,
@@ -16,17 +19,6 @@ function FinalAnswerForm(props) {
         finalUserAnswer,
         setFinalUserAnswer
     } = useContext(FinalAnswerContext);
-
-    const { userData, setUserData } = useContext(UserContext);
-
-    const statsMutation = useMutation({
-        mutationFn: (updatedUserData) => {
-            return axios.patch(
-                `http://localhost:3000/users/${userData._id}`,
-                updatedUserData
-            );
-        }
-    });
 
     const handleInput = (e) => {
         setFinalUserAnswer(e.target.value);
@@ -61,7 +53,7 @@ function FinalAnswerForm(props) {
 
         updatedUserData.stats.finalAnswer.attemptedAnswers += 1;
 
-        statsMutation.mutate(updatedUserData);
+        mutate(updatedUserData);
         setUserData(updatedUserData);
 
         setFinalCheckedAnswer(true);
@@ -72,7 +64,7 @@ function FinalAnswerForm(props) {
         setFinalCorrectAnswer(null);
         setFinalCheckedAnswer(false);
         setFinalUserAnswer('');
-        props.refetch();
+        queryClient.refetchQueries({ queryKey: ['finalAnswerData'] });
     };
 
     return (
@@ -124,10 +116,6 @@ function FinalAnswerForm(props) {
         </>
     );
 }
-
-FinalAnswerForm.propTypes = {
-    refetch: PropTypes.func
-};
 
 export default FinalAnswerForm;
 

@@ -1,25 +1,15 @@
-import axios from 'axios';
 import styled from 'styled-components';
 import FinalAnswerForm from '../components/forms/FinalAnswerForm';
 import OpenClueCard from '../components/cards/OpenClueCard';
-import { useQuery } from '@tanstack/react-query';
+import { useQueryFinalAnswer } from '../apis/JService';
 import { useContext, useEffect } from 'react';
 import { FinalAnswerContext } from '../contexts/FinalAnswerContext';
 
 function FinalAnswer() {
-    const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
-
     const { setFinalAnswer } = useContext(FinalAnswerContext);
 
-    const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
-        queryKey: ['finalAnswerData'],
-        queryFn: () =>
-            axios.get('http://jservice.io/api/final').then((res) => res.data),
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        refetchOnReconnect: false,
-        staleTime: twentyFourHoursInMs
-    });
+    const { isLoading, isError, isSuccess, data, error } =
+        useQueryFinalAnswer();
 
     useEffect(() => {
         if (isSuccess) {
@@ -42,7 +32,7 @@ function FinalAnswer() {
                     {isSuccess ? (
                         <>
                             <OpenClueCard clue={data[0].question} />
-                            <FinalAnswerForm refetch={refetch} />
+                            <FinalAnswerForm />
                         </>
                     ) : null}
                 </SectionStyled>

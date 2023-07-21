@@ -13,7 +13,7 @@ import Answers from './pages/Answers';
 import Header from './components/header/Header';
 
 function App() {
-    const { userData, refetch } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
 
     return (
         <>
@@ -38,7 +38,7 @@ function App() {
             ) : (
                 <>
                     <MainStyled>
-                        <Onboarding refetch={refetch} />
+                        <Onboarding />
                     </MainStyled>
                 </>
             )}

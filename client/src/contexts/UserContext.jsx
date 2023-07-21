@@ -1,18 +1,13 @@
 import { createContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQueryGetUsersDB } from '../apis/MongoDB';
 
 export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
     const [userData, setUserData] = useState({});
 
-    const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
-        queryKey: ['userData'],
-        queryFn: () =>
-            axios.get('http://localhost:3000/users/').then((res) => res.data)
-    });
+    const { isLoading, isError, isSuccess, data, error } = useQueryGetUsersDB();
 
     useEffect(() => {
         if (isSuccess && data.data.length > 0) {
@@ -28,8 +23,7 @@ export const UserContextProvider = ({ children }) => {
                 isLoading,
                 isError,
                 isSuccess,
-                error,
-                refetch
+                error
             }}
         >
             {children}

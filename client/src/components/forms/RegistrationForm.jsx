@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
-import axios from 'axios';
-import { PropTypes } from 'prop-types';
+import { useMutationCreateUserDB } from '../../apis/MongoDB';
+import { useQueryClient } from '@tanstack/react-query';
 
-function RegistrationForm(props) {
+function RegistrationForm() {
+    const queryClient = useQueryClient();
+    const { mutate } = useMutationCreateUserDB(queryClient);
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -13,15 +15,6 @@ function RegistrationForm(props) {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zipCode, setZipCode] = useState('');
-
-    const userMutation = useMutation({
-        mutationFn: (newUserData) => {
-            return axios.post(`http://localhost:3000/users/`, newUserData);
-        },
-        onSuccess: () => {
-            props.refetch();
-        }
-    });
 
     const handleSaveButtonClick = (e) => {
         e.preventDefault();
@@ -51,7 +44,7 @@ function RegistrationForm(props) {
             }
         };
 
-        userMutation.mutate(newUserData);
+        mutate(newUserData);
     };
 
     return (
@@ -169,10 +162,6 @@ function RegistrationForm(props) {
         </>
     );
 }
-
-RegistrationForm.propTypes = {
-    refetch: PropTypes.func.isRequired
-};
 
 export default RegistrationForm;
 

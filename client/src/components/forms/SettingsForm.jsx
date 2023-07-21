@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useMutation } from '@tanstack/react-query';
 import { UserContext } from '../../contexts/UserContext';
-import axios from 'axios';
+import { useMutationUpdateUserDB } from '../../apis/MongoDB';
 
 function SettingsForm() {
     const { userData, setUserData } = useContext(UserContext);
+
+    const { mutate } = useMutationUpdateUserDB(userData._id);
 
     const [userID, setUserID] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -29,15 +30,6 @@ function SettingsForm() {
         setZipCode(userData.zipCode);
     }, [userData]);
 
-    const userMutation = useMutation({
-        mutationFn: (updatedUserData) => {
-            return axios.patch(
-                `http://localhost:3000/users/${userData._id}`,
-                updatedUserData
-            );
-        }
-    });
-
     const handleSaveButtonClick = (e) => {
         e.preventDefault();
 
@@ -54,7 +46,7 @@ function SettingsForm() {
             stats: userData.stats
         };
 
-        userMutation.mutate(updatedUserData);
+        mutate(updatedUserData);
         setUserData(updatedUserData);
     };
 
@@ -72,7 +64,7 @@ function SettingsForm() {
                 attemptedAnswers: 0
             }
         };
-        userMutation.mutate(updatedUserData);
+        mutate(updatedUserData);
         setUserData.updatedUserData;
     };
 

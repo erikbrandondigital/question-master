@@ -1,7 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-import axios from 'axios';
 import { MainAnswersContext } from '../contexts/MainAnswersContext';
 import CategoryClueCard from '../components/cards/CategoryClueCard';
 import ClueCard from '../components/cards/ClueCard';
@@ -9,10 +7,10 @@ import OpenClueCard from '../components/cards/OpenClueCard';
 import MainAnswerForm from '../components/forms/MainAnswerForm';
 import BlankClueCard from './../components/cards/BlankClueCard';
 import Utils from './../utils/Utils';
+import { useQueryAnswers } from '../apis/JService';
+import { useQueryClient } from '@tanstack/react-query';
 
 function Answers() {
-    const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
-
     const {
         isAnswering,
         setIsAnswering,
@@ -25,57 +23,23 @@ function Answers() {
         setBoardData
     } = useContext(MainAnswersContext);
 
-    const { isLoading, isError, isSuccess, data, error, refetch } = useQuery({
-        queryKey: ['mainAnswersData'],
-        queryFn: () => {
-            const endpoints = [
-                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
-                    1,
-                    4694
-                )}`,
-                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
-                    4695,
-                    9389
-                )}`,
-                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
-                    9390,
-                    14083
-                )}`,
-                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
-                    14084,
-                    18778
-                )}`,
-                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
-                    18779,
-                    23473
-                )}`,
-                `https://jservice.io/api/category?id=${Utils.generateRandomNumber(
-                    23474,
-                    28163
-                )}`
-            ];
+    const queryClient = useQueryClient();
 
-            const requests = endpoints.map((url) => axios.get(url));
-
-            return axios
-                .all(requests)
-                .then((response) => response.map((category) => category.data));
-        },
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        refetchOnReconnect: false,
-        staleTime: twentyFourHoursInMs
-    });
+    const { isLoading, isError, isSuccess, data, error } = useQueryAnswers();
 
     useEffect(() => {
         if (isSuccess) {
             if (boardData.length === 0) {
                 let categories = [];
                 if (categories.length < 6)
-                    Utils.waitForSeconds(10).then(() => refetch());
+                    Utils.waitForSeconds(10).then(() =>
+                        queryClient.refetchQueries(['mainAnswersData'])
+                    );
                 data.forEach((category) => {
                     if (category.clues.length < 5) {
-                        Utils.waitForSeconds(10).then(() => refetch());
+                        Utils.waitForSeconds(10).then(() =>
+                            queryClient.refetchQueries(['mainAnswersData'])
+                        );
                         return;
                     }
 
@@ -102,15 +66,15 @@ function Answers() {
             }
         }
         console.log(boardData);
-    }, [boardData, data, isSuccess, setBoardData, refetch]);
+    }, [boardData, data, isSuccess, setBoardData, queryClient]);
 
     useEffect(() => {
         if (mainAnswerCount === 30) {
             setBoardData([]);
             setMainAnswerCount(0);
-            refetch();
+            queryClient.refetchQueries(['mainAnswersData']);
         }
-    }, [mainAnswerCount, setMainAnswerCount, setBoardData, refetch]);
+    }, [mainAnswerCount, setMainAnswerCount, setBoardData, queryClient]);
 
     const handleClick = (clue) => {
         setMainAnswer(clue.answer);
