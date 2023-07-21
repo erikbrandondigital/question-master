@@ -28,42 +28,43 @@ function Answers() {
     const { isLoading, isError, isSuccess, data, error } = useQueryAnswers();
 
     useEffect(() => {
-        if (isSuccess) {
-            if (boardData.length === 0) {
-                let categories = [];
-                if (categories.length < 6)
+        if (isSuccess && boardData.length === 0) {
+            let categories = [];
+            data.forEach((category) => {
+                if (category.clues.length < 5) {
                     Utils.waitForSeconds(10).then(() =>
                         queryClient.refetchQueries(['mainAnswersData'])
                     );
-                data.forEach((category) => {
-                    if (category.clues.length < 5) {
-                        Utils.waitForSeconds(10).then(() =>
-                            queryClient.refetchQueries(['mainAnswersData'])
-                        );
-                        return;
-                    }
+                    return;
+                }
 
-                    let fiveClues = [];
-                    for (const [index, clue] of category.clues.entries()) {
-                        if (index >= 5) break;
+                let fiveClues = [];
+                for (const [index, clue] of category.clues.entries()) {
+                    if (index >= 5) break;
 
-                        fiveClues.push({
-                            question: clue.question,
-                            answer: clue.answer,
-                            category: category.title.toUpperCase(),
-                            value: `$${(index + 1) * 400}`,
-                            isAnswered: false
-                        });
-                    }
-
-                    categories.push({
-                        name: category.title.toUpperCase(),
-                        clues: fiveClues
+                    fiveClues.push({
+                        question: clue.question,
+                        answer: clue.answer,
+                        category: category.title.toUpperCase(),
+                        value: `$${(index + 1) * 400}`,
+                        isAnswered: false
                     });
-                });
+                }
 
-                setBoardData(categories);
+                categories.push({
+                    name: category.title.toUpperCase(),
+                    clues: fiveClues
+                });
+            });
+
+            if (categories.length < 6) {
+                Utils.waitForSeconds(10).then(() =>
+                    queryClient.refetchQueries(['mainAnswersData'])
+                );
+                return;
             }
+
+            setBoardData(categories);
         }
         console.log(boardData);
     }, [boardData, data, isSuccess, setBoardData, queryClient]);
@@ -114,14 +115,21 @@ function Answers() {
                         ? 'Answers'
                         : `Answers - Category: ${currentClue.category.toString()}`}
                 </Heading1Styled>
-                {isAnswering ? (
+                {isLoading ? <OpenClueCard clue='Loading...' /> : null}
+                {isError ? (
+                    <OpenClueCard
+                        clue={`${error.message || 'Unknown Error'}`}
+                    />
+                ) : null}
+                {isAnswering && !isLoading && !isError ? (
                     <SectionStyled>
                         <OpenClueCard clue={currentClue.question.toString()} />
                         <MainAnswerForm />
                     </SectionStyled>
-                ) : (
+                ) : null}
+                {!isAnswering && !isLoading && !isError ? (
                     <GridSectionStyled>{categories}</GridSectionStyled>
-                )}
+                ) : null}
             </ArticleStyled>
         </>
     );
