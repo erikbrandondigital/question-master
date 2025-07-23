@@ -2,30 +2,74 @@ name: question-master
 
 services:
   client:
-    image: question-master
     build:
       context: ./src/client
       dockerfile: Dockerfile
-    environment:
-      NODE_ENV: production
+    env_file:
+      - ./src/client/.env
+    depends_on:
+      server:
+        condition: service_started
+      jservice:
+        condition: service_started
     ports:
       - "5173:5173"
+
   server:
     build:
       context: ./src/server
       dockerfile: Dockerfile
+    env_file:
+      - ./src/server/.env
     depends_on:
       mongodb:
-        condition: service_started
+        condition: service_healthy
     ports:
       - "3000:3000"
+
+  jservice:
+    build:
+      context: ./src/jservice
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ./src/jservice/.env
+    volumes:
+      - jservice-tmp:/app/tmp
+    ports:
+      - "3001:3000"
+
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    volumes:
+      - jservice-pg-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./src/jservice/.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   mongodb:
-    image: mongo:6.0.6
-    container_name: mongodb
+    image: mongo:7.0.22
     ports:
       - "27017:27017"
     volumes:
       - question-master-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 volumes:
   question-master-data:
+  jservice-pg-data:
+  jservice-tmp:
