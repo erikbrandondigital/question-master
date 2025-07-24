@@ -8,10 +8,7 @@ const PORT = import.meta.env.VITE_SERVER_PORT;
 export const useQueryGetUsersDB = () => {
   return useQuery({
     queryKey: ['userData'],
-    queryFn: () =>
-      axios
-        .get(`${PROTOCOL}://${HOSTNAME}:${PORT}/users/`)
-        .then((res) => res.data),
+    queryFn: () => axios.get(`${PROTOCOL}://${HOSTNAME}:${PORT}/users/`).then((res) => res.data),
   });
 };
 
@@ -29,10 +26,7 @@ export const useMutationCreateUserDB = (queryClient) => {
 export const useMutationUpdateUserDB = (userID) => {
   return useMutation({
     mutationFn: (data) => {
-      return axios.patch(
-        `${PROTOCOL}://${HOSTNAME}:${PORT}/users/${userID}`,
-        data,
-      );
+      return axios.patch(`${PROTOCOL}://${HOSTNAME}:${PORT}/users/${userID}`, data);
     },
   });
 };

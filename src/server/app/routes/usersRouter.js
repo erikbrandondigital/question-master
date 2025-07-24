@@ -1,10 +1,10 @@
 import express from 'express';
 import {
-    getUsers,
-    getUserByID,
-    createUser,
-    updateUser,
-    deleteUser
+  createUser,
+  deleteUser,
+  getUserByID,
+  getUsers,
+  updateUser,
 } from '../controllers/usersController.js';
 
 export const usersRouter = express.Router();

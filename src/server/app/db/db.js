@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { MONGO_STATUS } from "../messages/messages.js";
+import mongoose from 'mongoose';
+import { MONGO_STATUS } from '../messages/messages.js';
 
 const connectDB = async () => {
   try {

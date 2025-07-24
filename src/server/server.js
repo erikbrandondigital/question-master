@@ -1,7 +1,7 @@
+import dotenv from 'dotenv';
 import { createServer } from 'http';
 import app from './app/app.js';
 import { SERVER_STATUS } from './app/messages/messages.js';
-import dotenv from 'dotenv';
 
 dotenv.config();
 
