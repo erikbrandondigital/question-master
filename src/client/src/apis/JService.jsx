@@ -19,10 +19,7 @@ const getAllCategoriesCount = async () => {
 export const useQueryFinalAnswer = () => {
   return useQuery({
     queryKey: ['finalAnswerData'],
-    queryFn: () =>
-      axios
-        .get(`${PROTOCOL}://${HOSTNAME}:${PORT}/api/final`)
-        .then((res) => res.data),
+    queryFn: () => axios.get(`${PROTOCOL}://${HOSTNAME}:${PORT}/api/final`).then((res) => res.data),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
@@ -35,11 +32,7 @@ export const useQueryAnswers = () => {
     queryKey: ['mainAnswersData'],
     queryFn: async () => {
       const categoriesCount = await getAllCategoriesCount();
-      const categoryRanges = Utils.splitRangeIntoIntervals(
-        1,
-        categoriesCount,
-        6,
-      );
+      const categoryRanges = Utils.splitRangeIntoIntervals(1, categoriesCount, 6);
 
       const endpoints = [];
       categoryRanges.forEach((range) => {
@@ -50,9 +43,7 @@ export const useQueryAnswers = () => {
 
       const requests = endpoints.map((url) => axios.get(url));
 
-      return axios
-        .all(requests)
-        .then((response) => response.map((category) => category.data));
+      return axios.all(requests).then((response) => response.map((category) => category.data));
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,

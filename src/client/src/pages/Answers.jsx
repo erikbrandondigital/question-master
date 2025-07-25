@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQueryAnswers } from '../apis/JService';
 import CategoryClueCard from '../components/cards/CategoryClueCard';
@@ -27,26 +27,11 @@ function Answers() {
 
   const { isLoading, isError, isSuccess, data, error } = useQueryAnswers();
 
-  useEffect(() => {
-    if (isSuccess && boardData.length === 0) {
-      loadGameBoard();
-    }
-    console.log(boardData);
-  }, [boardData, data, isSuccess, setBoardData, queryClient]);
-
-  useEffect(() => {
-    if (mainAnswerCount === 30) {
-      restartGame();
-    }
-  }, [mainAnswerCount, setMainAnswerCount, setBoardData, queryClient]);
-
-  const loadGameBoard = () => {
+  const loadGameBoard = useCallback(() => {
     let categories = [];
     data.forEach((category) => {
       if (category.clues.length < 5) {
-        Utils.waitForSeconds(10).then(() =>
-          queryClient.refetchQueries(['mainAnswersData']),
-        );
+        Utils.waitForSeconds(10).then(() => queryClient.refetchQueries(['mainAnswersData']));
         return;
       }
 
@@ -70,20 +55,18 @@ function Answers() {
     });
 
     if (categories.length < 6) {
-      Utils.waitForSeconds(10).then(() =>
-        queryClient.refetchQueries(['mainAnswersData']),
-      );
+      Utils.waitForSeconds(10).then(() => queryClient.refetchQueries(['mainAnswersData']));
       return;
     }
 
     setBoardData(categories);
-  };
+  }, [data, queryClient, setBoardData]);
 
-  const restartGame = async () => {
+  const restartGame = useCallback(async () => {
     await queryClient.refetchQueries(['mainAnswersData']);
     setBoardData([]);
     setMainAnswerCount(0);
-  };
+  }, [queryClient, setBoardData, setMainAnswerCount]);
 
   const handleClick = (clue) => {
     setMainAnswer(clue.answer);
@@ -94,9 +77,7 @@ function Answers() {
 
   let categories = [];
   boardData.forEach((category) => {
-    categories.push(
-      <CategoryClueCard category={category.name} key={category.name} />,
-    );
+    categories.push(<CategoryClueCard category={category.name} key={category.name} />);
 
     category.clues.forEach((clue) => {
       categories.push(
@@ -115,18 +96,27 @@ function Answers() {
     });
   });
 
+  useEffect(() => {
+    if (isSuccess && boardData.length === 0) {
+      loadGameBoard();
+    }
+    console.log(boardData);
+  }, [boardData, data, isSuccess, setBoardData, queryClient, loadGameBoard, restartGame]);
+
+  useEffect(() => {
+    if (mainAnswerCount === 30) {
+      restartGame();
+    }
+  }, [mainAnswerCount, setMainAnswerCount, setBoardData, queryClient, restartGame]);
+
   return (
     <>
       <ArticleStyled>
         <Heading2Styled>
-          {!isAnswering
-            ? 'Answers'
-            : `Answers - Category: ${currentClue.category.toString()}`}
+          {!isAnswering ? 'Answers' : `Answers - Category: ${currentClue.category.toString()}`}
         </Heading2Styled>
         {isLoading ? <OpenClueCard clue="Loading..." /> : null}
-        {isError ? (
-          <OpenClueCard clue={`${error.message || 'Unknown Error'}`} />
-        ) : null}
+        {isError ? <OpenClueCard clue={`${error.message || 'Unknown Error'}`} /> : null}
         {isAnswering && !isLoading && !isError ? (
           <SectionStyled>
             <OpenClueCard clue={currentClue.question.toString()} />

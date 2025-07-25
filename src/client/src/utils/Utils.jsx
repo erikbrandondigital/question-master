@@ -1,7 +1,6 @@
 const Utils = {};
 
-Utils.generateRandomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+Utils.generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 Utils.splitRangeIntoIntervals = (min, max, numIntervals) => {
   if (numIntervals <= 0) {
@@ -25,13 +24,10 @@ Utils.splitRangeIntoIntervals = (min, max, numIntervals) => {
   return intervals;
 };
 
-Utils.waitForSeconds = (seconds) =>
-  new Promise((resolve) => setTimeout(resolve, seconds));
+Utils.waitForSeconds = (seconds) => new Promise((resolve) => setTimeout(resolve, seconds));
 
 Utils.calculateSuccessRate = (correctAnswers, attemptedAnswers) => {
-  let successRate = Math.round(
-    (parseInt(correctAnswers) / parseInt(attemptedAnswers)) * 100,
-  );
+  let successRate = Math.round((parseInt(correctAnswers) / parseInt(attemptedAnswers)) * 100);
   return isNaN(successRate) ? '0%' : `${successRate.toString()}%`;
 };
 
