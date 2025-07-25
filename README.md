@@ -52,7 +52,7 @@ The docs folder within this repo contains the following information and resource
 The following programming languages, package managers, services & web browsers are required to run the application.
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Docker Engine](https://docs.docker.com/engine/install/)
-- [mise-en-place)](https://mise.jdx.dev) or [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) (Optional but Recommended)
+- [mise-en-place](https://mise.jdx.dev) or [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) (Optional but Recommended)
 - NodeJS >= v22.17.0
 - NPM >=v10.9.2
 - MongoDB Server >= v6.0.6 Community
